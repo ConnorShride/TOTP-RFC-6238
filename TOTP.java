@@ -39,8 +39,9 @@
  public class TOTP {
 
      private static final long[] DIGITS_POWER
-             // 0 1  2   3    4     5      6       7        8          9          10
-             = {1,10,100,1000,10000,100000,1000000,10000000,100000000, 1000000000,
+             // 0 1  2   3    4     5      6       7        8...
+             = {1,10,100,1000,10000,100000,1000000,10000000,100000000,
+             1000000000,
              10000000000L };
 
      private TOTP() {}
@@ -101,8 +102,8 @@
       * @return a numeric String in base 10 that includes the specified number
       * of digits
       *************************************************************************/
-     public static String generateTOTP(String key, String time, String returnDigits,
-                                       String crypto) {
+     public static String generateTOTP(String key, String time,
+                                       String returnDigits, String crypto) {
 
          int codeDigits = Integer.decode(returnDigits);
 
@@ -159,12 +160,12 @@
          long time = System.currentTimeMillis() / 1000;
 
          // print table header (timestamp, timestamp UTC, T, TOTP, hash function
-         System.out.println("+---------------+--------------------+------------" +
-                 "--------+---------------+----------+");
+         System.out.println("+---------------+--------------------+----------" +
+                 "----------+---------------+----------+");
          System.out.printf("|%-15s|%-20s|%-20s|%-15s|%-10s|\n", "Time(sec)",
                  "Time (UTC format)", "Value of T(Hex)", "TOTP", "Mode");
-         System.out.println("+---------------+--------------------+------------" +
-                 "--------+---------------+----------+");
+         System.out.println("+---------------+--------------------+----------" +
+                 "----------+---------------+----------+");
 
          long T = (time - T0)/X;
          String steps = Long.toHexString(T).toUpperCase();
@@ -186,7 +187,7 @@
          System.out.printf("|%-15s|%-10s|\n", generateTOTP(key, steps, digits,
                  "HmacSHA512"), "SHA512");
 
-         System.out.println("+---------------+--------------------+------------" +
-                 "--------+---------------+----------+");
+         System.out.println("+---------------+--------------------+---------" +
+                 "-----------+---------------+----------+");
      }
  }
